@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Aplikasi Kasir & Keranjang Belanja Sederhana (Mini POS) untuk Kantin Kampus - Praktikum PAW Pertemuan 1">
+  <title>Mini POS Kantin Kampus | Nahli Saud Ramdani - 123140049</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Header Aplikasi -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <i class="fa-solid fa-cash-register"></i>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-title">KantinKita POS</h1>
+          <p class="brand-subtitle">Sistem Kasir & Manajemen Keranjang Belanja Kampus</p>
+        </div>
+      </div>
+
+      <!-- Badge Mahasiswa & Status Waktu -->
+      <div class="header-widgets">
+        <div class="student-badge">
+          <div class="student-avatar">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <div class="student-details">
+            <span class="student-name">Nahli Saud Ramdani</span>
+            <span class="student-meta">NIM: <strong>123140049</strong> • Kelas: <strong>RA</strong></span>
+          </div>
+        </div>
+        <div class="clock-badge">
+          <i class="fa-regular fa-clock"></i>
+          <span id="liveClock">--:--:-- WIB</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Kontainer Utama -->
+  <main class="main-container">
+    <div class="pos-layout">
+
+      <!-- SISI KIRI: INPUT & PRESET MENU -->
+      <section class="left-section">
+
+        <!-- Kartu Form Tambah Barang -->
+        <div class="card form-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-badge bg-primary"><i class="fa-solid fa-cart-plus"></i></span>
+              <div>
+                <h2 class="card-title">Tambah Barang Baru</h2>
+                <p class="card-subtitle">Input barang dengan validasi otomatis</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="addItemForm" novalidate>
+            <!-- Input Nama Barang -->
+            <div class="form-group" id="groupItemName">
+              <label for="itemName" class="form-label">
+                Nama Barang <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-bowl-food input-icon"></i>
+                <input type="text" id="itemName" class="form-control" placeholder="Contoh: Nasi Goreng Spesial, Es Teh"
+                  autocomplete="off">
+              </div>
+              <small class="error-feedback" id="itemNameError"></small>
+            </div>
+
+            <!-- Grid 2 Kolom: Harga & Qty -->
+            <div class="form-row">
+              <!-- Input Harga Satuan -->
+              <div class="form-group" id="groupItemPrice">
+                <label for="itemPrice" class="form-label">
+                  Harga Satuan (Rp) <span class="required-star">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">Rp</span>
+                  <input type="number" id="itemPrice" class="form-control with-prefix" placeholder="Min. 500" min="500"
+                    step="100">
+                </div>
+                <small class="error-feedback" id="itemPriceError"></small>
+              </div>
+
+              <!-- Input Jumlah / Qty -->
+              <div class="form-group" id="groupItemQty">
+                <label for="itemQty" class="form-label">
+                  Jumlah (Qty) <span class="required-star">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-calculator input-icon"></i>
+                  <input type="number" id="itemQty" class="form-control" placeholder="Min. 1" min="1" value="1"
+                    step="1">
+                </div>
+                <small class="error-feedback" id="itemQtyError"></small>
+              </div>
+            </div>
+
+            <!-- Preview Kalkulasi Subtotal Form -->
+            <div class="form-subtotal-preview">
+              <span>Estimasi Subtotal:</span>
+              <strong id="formSubtotalPreview">Rp 0</strong>
+            </div>
+
+            <!-- Tombol Aksi Form -->
+            <div class="form-actions">
+              <button type="submit" id="btnSubmitItem" class="btn btn-primary btn-block">
+                <i class="fa-solid fa-plus-circle"></i> Tambahkan ke Keranjang
+              </button>
+              <button type="button" id="btnResetForm" class="btn btn-secondary">
+                <i class="fa-solid fa-arrow-rotate-left"></i> Bersihkan
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Kartu Menu Cepat Kantin Kampus -->
+        <div class="card preset-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-badge bg-secondary"><i class="fa-solid fa-bolt"></i></span>
+              <div>
+                <h2 class="card-title">Pilihan Cepat Kantin</h2>
+                <p class="card-subtitle">Klik untuk langsung menambahkan item populer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-items-grid" id="quickItemsContainer">
+            <!-- Diisi otomatis via JavaScript -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SISI KANAN: KERANJANG BELANJA & KALKULATOR TOTAL/PEMBAYARAN -->
+      <section class="right-section">
+
+        <!-- Kartu Tabel Keranjang Belanja -->
+        <div class="card cart-card">
+          <div class="card-header space-between">
+            <div class="card-title-group">
+              <span class="card-badge bg-success"><i class="fa-solid fa-bag-shopping"></i></span>
+              <div>
+                <h2 class="card-title">Daftar Keranjang Belanja</h2>
+                <p class="card-subtitle"><span id="cartCountBadge" class="badge">0 Item</span> tersimpan di LocalStorage
+                </p>
+              </div>
+            </div>
+            <button id="btnClearCart" class="btn btn-danger-outline btn-sm" title="Hapus semua barang dari keranjang">
+              <i class="fa-solid fa-trash-can"></i> Kosongkan Keranjang
+            </button>
+          </div>
+
+          <!-- Tabel Responsif Keranjang -->
+          <div class="table-responsive">
+            <table class="table-cart" id="cartTable">
+              <thead>
+                <tr>
+                  <th style="width: 5%">No</th>
+                  <th style="width: 32%">Nama Barang</th>
+                  <th style="width: 20%">Harga Satuan</th>
+                  <th style="width: 18%">Jumlah</th>
+                  <th style="width: 17%">Subtotal</th>
+                  <th style="width: 8%; text-align: center;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="cartTableBody">
+                <!-- Baris tabel di-generate via JavaScript -->
+              </tbody>
+            </table>
+
+            <!-- State Ketika Keranjang Kosong -->
+            <div class="empty-state" id="emptyCartState">
+              <div class="empty-icon">
+                <i class="fa-solid fa-cart-arrow-down"></i>
+              </div>
+              <h3 class="empty-title">Keranjang Belanja Masih Kosong</h3>
+              <p class="empty-desc">Gunakan formulir di sebelah kiri atau pilih menu cepat untuk menambahkan barang
+                transaksi.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu Kalkulator & Kasir -->
+        <div class="card checkout-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-badge bg-warning"><i class="fa-solid fa-receipt"></i></span>
+              <div>
+                <h2 class="card-title">Rincian Pembayaran</h2>
+                <p class="card-subtitle">Perhitungan otomatis subtotal, diskon & kembalian</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout-grid">
+
+            <!-- Kolom Ringkasan Biaya & Promo -->
+            <div class="summary-col">
+
+              <!-- Promo Banner / Info Diskon -->
+              <div class="promo-banner" id="promoBanner">
+                <div class="promo-icon"><i class="fa-solid fa-tags"></i></div>
+                <div class="promo-text">
+                  <strong>Program Hemat Kantin:</strong>
+                  <span>Belanja min. <b>Rp 50.000</b> otomatis Diskon <b>10%</b> atau pakai kode <b>HEMAT10</b>!</span>
+                </div>
+              </div>
+
+              <!-- Input Kode Promo -->
+              <div class="promo-input-box">
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-ticket input-icon"></i>
+                  <input type="text" id="couponCodeInput" class="form-control" placeholder="Ketik kupon (cth: HEMAT10)">
+                </div>
+                <button type="button" id="btnApplyCoupon" class="btn btn-secondary">Terapkan</button>
+              </div>
+              <small id="couponFeedback" class="coupon-feedback"></small>
+
+              <!-- Rincian Total Angka -->
+              <div class="bill-details">
+                <div class="bill-row">
+                  <span class="bill-label">Subtotal Keseluruhan</span>
+                  <span class="bill-value" id="calcSubtotal">Rp 0</span>
+                </div>
+
+                <div class="bill-row" id="rowDiscount">
+                  <span class="bill-label">
+                    Potongan Diskon (<span id="discountPercentage">0%</span>)
+                    <span id="discountSourceBadge" class="badge-discount-tag"></span>
+                  </span>
+                  <span class="bill-value text-danger" id="calcDiscount">- Rp 0</span>
+                </div>
+
+                <div class="bill-divider"></div>
+
+                <div class="bill-row bill-grand-total">
+                  <span class="bill-label">Total Akhir Bayar</span>
+                  <span class="bill-value text-primary" id="calcGrandTotal">Rp 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kolom Kasir: Uang Bayar & Kembalian -->
+            <div class="payment-col">
+
+              <!-- Input Uang Bayar -->
+              <div class="form-group mb-2">
+                <label for="cashGivenInput" class="form-label font-bold">
+                  Uang Diterima / Bayar (Rp) <span class="required-star">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">Rp</span>
+                  <input type="number" id="cashGivenInput" class="form-control with-prefix input-lg" placeholder="0"
+                    min="0">
+                </div>
+              </div>
+
+              <!-- Tombol Cepat Nominal Uang (Quick Cash) -->
+              <div class="quick-cash-row">
+                <button type="button" class="btn-cash" data-cash="exact">Uang Pas</button>
+                <button type="button" class="btn-cash" data-cash="10000">10rb</button>
+                <button type="button" class="btn-cash" data-cash="20000">20rb</button>
+                <button type="button" class="btn-cash" data-cash="50000">50rb</button>
+                <button type="button" class="btn-cash" data-cash="100000">100rb</button>
+              </div>
+
+              <!-- Status Kembalian Box -->
+              <div class="change-status-box" id="changeStatusBox">
+                <div class="change-label" id="changeLabel">Status Pembayaran</div>
+                <div class="change-amount" id="changeAmount">Rp 0</div>
+                <div class="change-note" id="changeNote">Masukkan nominal uang bayar kasir.</div>
+              </div>
+
+              <!-- Tombol Selesai & Transaksi Baru -->
+              <div class="checkout-actions">
+                <button id="btnCompleteTransaction" class="btn btn-success btn-block" disabled>
+                  <i class="fa-solid fa-receipt"></i> Cetak Struk Transaksi
+                </button>
+                <button id="btnNewTransaction" class="btn btn-outline-secondary btn-block">
+                  <i class="fa-solid fa-plus"></i> Transaksi Baru (Reset)
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal Struk Pembayaran -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="modal-card">
+      <div class="modal-header-print">
+        <h3 class="modal-title"><i class="fa-solid fa-receipt"></i> Struk Belanja Kasir</h3>
+        <button class="btn-close-modal" id="btnCloseModal">&times;</button>
+      </div>
+
+      <!-- Kertas Struk / Paper Receipt -->
+      <div class="receipt-paper" id="receiptPaper">
+        <div class="receipt-header">
+          <h2 class="receipt-store-name">KANTIN KAMPUS ITERA</h2>
+          <p class="receipt-address">Gedung Kuliah Umum (GKU) Lt. 1</p>
+          <p class="receipt-meta">Kasir: Nahli Saud Ramdani (123140049 - RA)</p>
+          <div class="receipt-dashed-line"></div>
+          <div class="receipt-info-row">
+            <span id="receiptDate">08/10/2026 12:00</span>
+            <span id="receiptTrxId">TRX-00123</span>
+          </div>
+          <div class="receipt-dashed-line"></div>
+        </div>
+
+        <div class="receipt-items" id="receiptItemsContainer">
+          <!-- Diisi tabel ringkas item belanja -->
+        </div>
+
+        <div class="receipt-dashed-line"></div>
+
+        <div class="receipt-totals">
+          <div class="receipt-line">
+            <span>Subtotal</span>
+            <span id="receiptSubtotal">Rp 0</span>
+          </div>
+          <div class="receipt-line" id="receiptDiscountLine">
+            <span>Diskon</span>
+            <span id="receiptDiscount">Rp 0</span>
+          </div>
+          <div class="receipt-dashed-line"></div>
+          <div class="receipt-line receipt-total-bold">
+            <span>TOTAL AKHIR</span>
+            <span id="receiptGrandTotal">Rp 0</span>
+          </div>
+          <div class="receipt-line">
+            <span>Tunai / Bayar</span>
+            <span id="receiptCash">Rp 0</span>
+          </div>
+          <div class="receipt-line">
+            <span>Kembalian</span>
+            <span id="receiptChange">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="receipt-dashed-line"></div>
+
+        <div class="receipt-footer">
+          <p>Terima kasih telah berbelanja di Kantin Kampus!</p>
+          <p class="receipt-small">Simpan struk ini sebagai bukti pembayaran sah.</p>
+          <p class="receipt-sub-nim">Praktikum PAW Pertemuan 1 - 123140049</p>
+        </div>
+      </div>
+
+      <div class="modal-actions no-print">
+        <button class="btn btn-primary" id="btnPrintReceipt">
+          <i class="fa-solid fa-print"></i> Cetak / Print Struk
+        </button>
+        <button class="btn btn-secondary" id="btnDoneTransaction">
+          <i class="fa-solid fa-check"></i> Selesai
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer Mahasiswa -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>
+        <strong>Tugas Praktikum PAW (Pengembangan Aplikasi Web) - Pertemuan 1</strong> •
+        Aplikasi Mini POS Kasir & Keranjang Belanja Sederhana
+      </p>
+      <p class="footer-copyright">
+        Dibuat oleh: <strong>Nahli Saud Ramdani</strong> (NIM: <strong>123140049</strong>) - Kelas Praktikum
+        <strong>RA</strong> &copy; 2026
+      </p>
+    </div>
+  </footer>
+
+  <!-- Custom JavaScript -->
+  <script src="script.js"></script>
+</body>
+
+</html>
