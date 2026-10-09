@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 4 - Form Validation, LocalStorage, API & DOM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    body.dark-mode {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 2rem 1rem; transition: background-color 0.3s, color 0.3s; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 1.8rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+    .header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem; }
+    .nav-back { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--primary); font-weight: 600; margin-bottom: 1rem; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+    .card h2 { font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    
+    /* Toggle Dark Mode Switch */
+    .theme-toggle-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+
+    /* Form & Validation styles */
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.35rem; }
+    input, select { width: 100%; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; background: var(--card-bg); color: var(--text); }
+    input.error { border-color: var(--danger); }
+    .error-msg { color: var(--danger); font-size: 0.8rem; margin-top: 0.25rem; display: block; }
+    
+    button { background: var(--primary); color: white; border: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    button:hover { background: var(--primary-hover); }
+
+    /* Table styles */
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.9rem; }
+    th { background: rgba(0, 0, 0, 0.03); font-weight: 700; }
+
+    /* API Post Cards */
+    .posts-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; }
+    .post-card { background: rgba(0, 0, 0, 0.02); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .post-card h3 { font-size: 1rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: capitalize; }
+    .post-card p { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* Pagination controls */
+    .pagination { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+
+    /* Todo List Items */
+    .todo-list { list-style: none; margin-top: 1rem; }
+    .todo-item { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; background: rgba(0, 0, 0, 0.01); }
+    .todo-item.completed span { text-decoration: line-through; opacity: 0.6; }
+    .todo-actions { display: flex; gap: 0.5rem; }
+    .btn-sm { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+    .btn-danger { background: var(--danger); }
+    .btn-success { background: var(--success); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Modul</a>
+    
+    <div class="header">
+      <div>
+        <h1><i class="fa-solid fa-layer-group"></i> Latihan 4: Form Validation, LocalStorage & API</h1>
+        <p>Praktikum PAW Pertemuan 1 - Nahli Saud Ramdani (123140049)</p>
+      </div>
+      <!-- Dark Mode Toggle -->
+      <button class="theme-toggle-btn" id="darkToggleBtn">
+        <i class="fa-solid fa-moon"></i> <span id="darkToggleLabel">Dark Mode</span>
+      </button>
+    </div>
+
+    <!-- 1 & 2. Form Input Mahasiswa dengan Validasi & LocalStorage -->
+    <div class="card">
+      <h2><i class="fa-solid fa-user-plus"></i> 1 & 2. Form Input Mahasiswa (Validasi & LocalStorage Persisten)</h2>
+      <form id="mhsFormValidation" novalidate>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="valNama">Nama Mahasiswa (Min. 3 Karakter):</label>
+            <input type="text" id="valNama" placeholder="Contoh: Nahli Saud Ramdani">
+            <small id="errNama" class="error-msg"></small>
+          </div>
+          <div class="form-group">
+            <label for="valNim">NIM (Angka, Min. 8 Digit):</label>
+            <input type="text" id="valNim" placeholder="Contoh: 123140049">
+            <small id="errNim" class="error-msg"></small>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="valJurusan">Jurusan:</label>
+            <input type="text" id="valJurusan" placeholder="Contoh: Teknik Informatika">
+            <small id="errJurusan" class="error-msg"></small>
+          </div>
+          <div class="form-group">
+            <label for="valNilai">Nilai (0 - 100):</label>
+            <input type="number" id="valNilai" placeholder="Contoh: 90" min="0" max="100">
+            <small id="errNilai" class="error-msg"></small>
+          </div>
+        </div>
+        <button type="submit"><i class="fa-solid fa-save"></i> Simpan ke LocalStorage</button>
+      </form>
+
+      <h3 style="margin-top: 1.5rem; font-size: 1rem;">Daftar Mahasiswa di LocalStorage:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>NIM</th>
+            <th>Nama</th>
+            <th>Jurusan</th>
+            <th>Nilai</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="storageMhsTableBody">
+          <!-- Populated from LocalStorage -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3 & 5. Fetch API JSONPlaceholder + Search Filter + Pagination -->
+    <div class="card">
+      <h2><i class="fa-solid fa-cloud-arrow-down"></i> 3 & 5. Integrasi API (Search Filter & Pagination)</h2>
+      <div class="form-group">
+        <label for="apiSearchInput">Cari Post Berdasarkan Title:</label>
+        <input type="text" id="apiSearchInput" placeholder="Ketik kata kunci judul post...">
+      </div>
+
+      <div class="posts-grid" id="postsContainer">
+        <!-- API Posts render here -->
+      </div>
+
+      <div class="pagination">
+        <button id="btnPrevPage" class="btn-sm"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+        <span id="pageIndicator" style="font-weight: 600; font-size: 0.9rem;">Halaman 1 dari 1</span>
+        <button id="btnNextPage" class="btn-sm">Next <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <!-- 6. Aplikasi Todo List Sederhana -->
+    <div class="card">
+      <h2><i class="fa-solid fa-list-check"></i> 6. Aplikasi Todo List (DOM & LocalStorage)</h2>
+      <div style="display: flex; gap: 0.5rem;">
+        <input type="text" id="todoInput" placeholder="Tuliskan tugas baru..." style="flex:1;">
+        <button id="btnAddTodo"><i class="fa-solid fa-plus"></i> Tambah</button>
+      </div>
+
+      <ul class="todo-list" id="todoListContainer">
+        <!-- Render todos -->
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="latihan4.js"></script>
+</body>
+</html>

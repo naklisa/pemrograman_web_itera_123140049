@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul Latihan Praktikum PAW Pertemuan 1 | Nahli Saud Ramdani - 123140049</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --accent-1: #3b82f6;
+      --accent-2: #10b981;
+      --accent-3: #f59e0b;
+      --accent-4: #ec4899;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 2.5rem 1.5rem; min-height: 100vh; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    
+    .header { text-align: center; margin-bottom: 3rem; }
+    .header-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(79, 70, 229, 0.15); border: 1px solid rgba(79, 70, 229, 0.4); color: #818cf8; padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.875rem; font-weight: 700; margin-bottom: 1rem; }
+    .header h1 { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+    .header p { color: var(--text-muted); font-size: 1rem; }
+
+    .nav-main { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #818cf8; font-weight: 600; margin-bottom: 2rem; background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; }
+    .nav-main:hover { background: rgba(255,255,255,0.1); }
+
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    
+    .mod-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; display: flex; flex-direction: column; justify-space-between; transition: all 0.3s ease; position: relative; overflow: hidden; text-decoration: none; color: inherit; }
+    .mod-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(79, 70, 229, 0.1); }
+    
+    .card-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
+    .icon-1 { background: rgba(59, 130, 246, 0.15); color: var(--accent-1); }
+    .icon-2 { background: rgba(16, 185, 129, 0.15); color: var(--accent-2); }
+    .icon-3 { background: rgba(245, 158, 11, 0.15); color: var(--accent-3); }
+    .icon-4 { background: rgba(236, 72, 153, 0.15); color: var(--accent-4); }
+
+    .mod-card h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #ffffff; }
+    .mod-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem; flex-grow: 1; }
+    
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.875rem; font-weight: 600; color: #818cf8; }
+    .mod-card:hover .card-footer { color: #ffffff; }
+
+    .identity-card { background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(30, 41, 59, 0.5) 100%); border: 1px solid rgba(79, 70, 229, 0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .id-details h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .id-details p { color: var(--text-muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="nav-main"><i class="fa-solid fa-store"></i> Kembali ke Aplikasi Kasir Utama (Mini POS)</a>
+    
+    <div class="header">
+      <div class="header-badge"><i class="fa-solid fa-folder-open"></i> FOLDER MODUL PRAKTIKUM</div>
+      <h1>Kumpulan Latihan Modul Pertemuan 1</h1>
+      <p>Pengembangan Aplikasi Web (PAW) - Institut Teknologi Sumatera (ITERA)</p>
+    </div>
+
+    <div class="identity-card">
+      <div class="avatar"><i class="fa-solid fa-user-graduate"></i></div>
+      <div class="id-details">
+        <h3>Nahli Saud Ramdani</h3>
+        <p>NIM: <strong>123140049</strong> • Kelas Praktikum: <strong>RA</strong> • Program Studi: Teknik Informatika</p>
+      </div>
+    </div>
+
+    <div class="modules-grid">
+      <!-- Card Latihan 1 -->
+      <a href="latihan1.html" class="mod-card">
+        <div class="card-icon icon-1"><i class="fa-solid fa-code"></i></div>
+        <h2>Latihan 1</h2>
+        <p>Data Diri (const/let), Pengecekan Kelulusan (>=70), Kategori Umur, Switch-Case Konversi Hari English, dan Grade Nilai dengan Ternary Operator.</p>
+        <div class="card-footer">
+          <span>Buka Latihan 1</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </a>
+
+      <!-- Card Latihan 2 -->
+      <a href="latihan2.html" class="mod-card">
+        <div class="card-icon icon-2"><i class="fa-solid fa-repeat"></i></div>
+        <h2>Latihan 2</h2>
+        <p>Tabel Perkalian (1-10), Fungsi Hitung Faktorial, Cek Bilangan Prima, Kalkulator BMI (Body Mass Index), dan Program FizzBuzz (1-100).</p>
+        <div class="card-footer">
+          <span>Buka Latihan 2</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </a>
+
+      <!-- Card Latihan 3 -->
+      <a href="latihan3.html" class="mod-card">
+        <div class="card-icon icon-3"><i class="fa-solid fa-users-gear"></i></div>
+        <h2>Latihan 3</h2>
+        <p>Array 5 Objek Mahasiswa, Pencarian Nilai Tertinggi, Filter Nilai di Atas Rata-Rata, Sorting Nama (Asc/Desc), dan Fitur CRUD Data Mahasiswa.</p>
+        <div class="card-footer">
+          <span>Buka Latihan 3</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </a>
+
+      <!-- Card Latihan 4 -->
+      <a href="latihan4.html" class="mod-card">
+        <div class="card-icon icon-4"><i class="fa-solid fa-layer-group"></i></div>
+        <h2>Latihan 4</h2>
+        <p>Form Input & Validasi, LocalStorage Persisten, Search & Pagination Posts via API, Dark Mode Toggle CSS, dan Aplikasi Todo List Sederhana.</p>
+        <div class="card-footer">
+          <span>Buka Latihan 4</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 1 - Dasar JavaScript & Kontrol Alur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 2rem 1rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+    .header h1 { font-size: 1.8rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+    .header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem; }
+    .nav-back { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--primary); font-weight: 600; margin-bottom: 1rem; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+    .card h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.35rem; color: #334155; }
+    input, select { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; }
+    input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+    button { background: var(--primary); color: white; border: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    button:hover { background: var(--primary-hover); }
+    .result-box { margin-top: 1rem; padding: 1rem; background: #f1f5f9; border-radius: 8px; font-family: monospace; font-size: 0.95rem; white-space: pre-wrap; word-break: break-all; }
+    .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: white; }
+    .badge-success { background: var(--success); }
+    .badge-danger { background: var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Modul</a>
+    <div class="header">
+      <h1><i class="fa-solid fa-code"></i> Latihan 1: Dasar JavaScript & Kontrol Alur</h1>
+      <p>Praktikum PAW Pertemuan 1 - Nahli Saud Ramdani (123140049)</p>
+    </div>
+
+    <!-- 1. Data Diri -->
+    <div class="card">
+      <h2><i class="fa-solid fa-user"></i> 1. Variabel Data Diri (const & let)</h2>
+      <div id="dataDiriResult" class="result-box">Memuat data...</div>
+    </div>
+
+    <!-- 2. Pengecekan Kelulusan -->
+    <div class="card">
+      <h2><i class="fa-solid fa-graduation-cap"></i> 2. Pengecekan Kelulusan (Nilai &ge; 70)</h2>
+      <div class="form-group">
+        <label for="nilaiLulus">Masukkan Nilai Mahasiswa (0-100):</label>
+        <input type="number" id="nilaiLulus" value="75" min="0" max="100">
+      </div>
+      <button onclick="cekKelulusanUI()">Cek Kelulusan</button>
+      <div id="kelulusanResult" class="result-box"></div>
+    </div>
+
+    <!-- 3. Kategori Umur -->
+    <div class="card">
+      <h2><i class="fa-solid fa-users"></i> 3. Kategori Umur</h2>
+      <div class="form-group">
+        <label for="inputUmur">Masukkan Umur (Tahun):</label>
+        <input type="number" id="inputUmur" value="20" min="0">
+      </div>
+      <button onclick="cekKategoriUmurUI()">Cek Kategori Umur</button>
+      <div id="kategoriUmurResult" class="result-box"></div>
+    </div>
+
+    <!-- 4. Switch Case Nama Hari -->
+    <div class="card">
+      <h2><i class="fa-solid fa-calendar-days"></i> 4. Konversi Angka Hari (1-7) ke Nama Hari English</h2>
+      <div class="form-group">
+        <label for="inputHari">Pilih / Masukkan Angka Hari (1-7):</label>
+        <input type="number" id="inputHari" value="1" min="1" max="7">
+      </div>
+      <button onclick="konversiHariUI()">Konversi Hari</button>
+      <div id="konversiHariResult" class="result-box"></div>
+    </div>
+
+    <!-- 5. Kalkulator Grade Ternary -->
+    <div class="card">
+      <h2><i class="fa-solid fa-calculator"></i> 5. Kalkulator Grade Nilai (Ternary Operator)</h2>
+      <div class="form-group">
+        <label for="inputGradeNilai">Masukkan Nilai (0-100):</label>
+        <input type="number" id="inputGradeNilai" value="88" min="0" max="100">
+      </div>
+      <button onclick="hitungGradeTernaryUI()">Hitung Grade</button>
+      <div id="gradeTernaryResult" class="result-box"></div>
+    </div>
+
+  </div>
+
+  <script src="latihan1.js"></script>
+</body>
+</html>

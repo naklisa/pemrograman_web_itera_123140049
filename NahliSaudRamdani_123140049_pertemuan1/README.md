@@ -71,14 +71,53 @@ Aplikasi Web **Mini Point of Sale (POS)** dan Manajemen Keranjang Belanja sederh
 
 ```plaintext
 NahliSaudRamdani_123140049_pertemuan1/
-├── index.html        # Struktur antarmuka web semantik & terstruktur
+├── index.html        # Struktur antarmuka web semantik & terstruktur (Aplikasi Utama POS)
 ├── style.css         # Desain tampilan modern, responsif, dan efek print receipt
 ├── script.js         # Logika JavaScript murni (DOM, validasi, kalkulator, localStorage)
-└── README.md         # Dokumentasi lengkap tugas praktikum
+├── README.md         # Dokumentasi lengkap tugas praktikum
+├── modul/            # Folder Latihan Praktikum Pertemuan 1
+│   ├── index.html    # Menu utama / Dashboard navigasi seluruh modul latihan
+│   ├── latihan1.html # Latihan 1: Data diri, Kelulusan, Umur, Switch Hari, Ternary Grade
+│   ├── latihan1.js
+│   ├── latihan2.html # Latihan 2: Tabel Perkalian, Faktorial, Prima, BMI, FizzBuzz
+│   ├── latihan2.js
+│   ├── latihan3.html # Latihan 3: Array Objek Mahasiswa, Highest, Filter, Sort, CRUD
+│   ├── latihan3.js
+│   ├── latihan4.html # Latihan 4: Validasi Form, LocalStorage, API Search/Pagination, Dark Mode, Todo List
+│   └── latihan4.js
+└── screenshots/      # Tangkapan Layar (Screenshot) Hasil Eksekusi Aplikasi
+    ├── 1_tampilan_form_input_utama.png
+    ├── 2_tampilan_validasi_error.png
+    ├── 3_hasil_kalkulator_dan_tabel_riwayat.png
+    └── 4_tampilan_folder_modul.png
 ```
 
 ---
 
-### Cara Menjalankan Aplikasi
-1. Buka berkas `index.html` langsung menggunakan web browser apa saja (Google Chrome, Microsoft Edge, Mozilla Firefox, dll).
-2. Atau gunakan ekstensi seperti **Live Server** di VS Code.
+### Cara Menjalankan Aplikasi & Modul Latihan
+1. **Aplikasi Utama (Mini POS)**: Buka berkas `index.html` di browser web.
+2. **Modul Latihan (Latihan 1-4)**: Buka berkas `modul/index.html` untuk mengakses seluruh latihan praktikum secara interaktif.
+3. **Tangkapan Layar**: Seluruh tangkapan layar pengujian telah tersimpan rapi di folder `screenshots/`.
+
+---
+
+### Tangkapan Layar (Screenshots) Aplikasi
+
+#### 1. Tampilan Form Input Utama
+![Form Input Utama](screenshots/1_tampilan_form_input_utama.png)
+
+---
+
+#### 2. Tampilan Saat Validasi Error Muncul
+![Validasi Error](screenshots/2_tampilan_validasi_error.png)
+
+---
+
+#### 3. Tampilan Hasil Perhitungan Kalkulator & Tabel Riwayat Data
+![Hasil Perhitungan dan Tabel Riwayat](screenshots/3_hasil_kalkulator_dan_tabel_riwayat.png)
+
+---
+
+#### 4. Tampilan Dashboard Folder Modul (Latihan 1 - 4)
+![Dashboard Modul Latihan](screenshots/4_tampilan_folder_modul.png)
+
