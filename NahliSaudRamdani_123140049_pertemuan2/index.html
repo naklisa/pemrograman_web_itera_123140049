@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ITERA Academic Hub - Personal Student Dashboard untuk Nahli Saud Ramdani (123140049). Aplikasi manajemen tugas kuliah, pemantauan cuaca kampus ITERA, kutipan harian, dan pencatat produktivitas berbasis ES6+ dan LocalStorage.">
+  <meta name="author" content="Nahli Saud Ramdani (123140049)">
+  <title>ITERA Academic Hub | Personal Student Dashboard</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+  <!-- Application Shell -->
+  <div class="app-layout">
+    
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1>ITERA Academic Hub</h1>
+            <span class="sub-badge">Personal Student Dashboard &bull; Pertemuan 2 PAW</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <!-- Live Campus Digital Clock -->
+        <div class="digital-clock-container" title="Waktu Lokal Kampus ITERA (WIB)">
+          <div class="clock-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="clock-display">
+            <span id="liveTime" class="live-time">--:--:-- WIB</span>
+            <span id="liveDate" class="live-date">Memuat tanggal...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Student Profile Identity Badge -->
+        <div class="user-profile-badge">
+          <div class="avatar-circle">NR</div>
+          <div class="user-details">
+            <span class="user-name">Nahli Saud Ramdani</span>
+            <span class="user-meta">NIM: 123140049 &bull; Kelas RA</span>
+          </div>
+        </div>
+
+        <!-- Modul Latihan Navigation Link -->
+        <a href="modul/index.html" class="btn btn-secondary btn-sm" style="text-decoration: none;" title="Buka Modul Latihan Pertemuan 2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>Modul Latihan</span>
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button id="themeToggleBtn" class="btn-icon" title="Ganti Tema (Terang / Gelap)" aria-label="Ganti Tema">
+          <svg id="themeIconSun" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg id="themeIconMoon" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+
+      <!-- Dynamic Motivational Quote Banner (Async: DummyJSON API) -->
+      <section class="quote-banner card" id="quoteSection">
+        <div class="quote-header">
+          <div class="quote-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sparkle-icon">
+              <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>
+            </svg>
+            <span>Kutipan Inspiratif & Motivasi Belajar Harian (Async DummyJSON API)</span>
+          </div>
+          <button id="refreshQuoteBtn" class="btn-text-sm" title="Muat kutipan baru">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin-hover">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>Acak Kutipan</span>
+          </button>
+        </div>
+        <div id="quoteContent" class="quote-body">
+          <p class="quote-text skeleton-text">&ldquo;Memuat kutipan motivasi dari server...&rdquo;</p>
+          <p class="quote-author skeleton-text-sm">&mdash; Anonymous</p>
+        </div>
+      </section>
+
+      <!-- Dashboard Grid Layout: Left Column (Widgets) & Right Column (Tasks Hub) -->
+      <div class="dashboard-grid">
+
+        <!-- LEFT SIDEBAR: Widgets & Student Info -->
+        <aside class="sidebar-column">
+          
+          <!-- Weather Widget (Async: Open-Meteo API for ITERA Campus Coordinates) -->
+          <div class="card weather-card" id="weatherWidget">
+            <div class="card-header">
+              <div class="header-title-group">
+                <div class="card-icon weather-accent">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Cuaca Kampus ITERA</h2>
+                  <span class="card-subtitle">Jati Agung, Lampung Selatan (-5.36°, 105.31°)</span>
+                </div>
+              </div>
+              <button id="refreshWeatherBtn" class="btn-icon-sm" title="Perbarui Data Cuaca" aria-label="Perbarui Cuaca">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+              </button>
+            </div>
+
+            <div id="weatherContent" class="weather-body">
+              <div class="weather-main-row">
+                <div class="weather-temp-wrap">
+                  <span id="weatherTemp" class="weather-temp">--°C</span>
+                  <span id="weatherDesc" class="weather-desc">Memuat data cuaca...</span>
+                </div>
+                <div id="weatherIconContainer" class="weather-illustration">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="weather-meta-grid">
+                <div class="meta-item">
+                  <span class="meta-label">Kecepatan Angin</span>
+                  <span id="weatherWind" class="meta-val">-- km/jam</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Status Langit</span>
+                  <span id="weatherStatus" class="meta-val">--</span>
+                </div>
+              </div>
+
+              <!-- Practical Campus Advice based on Weather -->
+              <div id="weatherAdvice" class="weather-advice">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span id="adviceText">Tips: Memantau kondisi cuaca untuk aktivitas kuliah Anda.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Pomodoro Study Focus Timer -->
+          <div class="card pomodoro-card">
+            <div class="card-header">
+              <div class="header-title-group">
+                <div class="card-icon pomodoro-accent">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 10"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Fokus Belajar (Pomodoro)</h2>
+                  <span class="card-subtitle">Teknik konsentrasi 25 menit</span>
+                </div>
+              </div>
+              <span id="pomodoroMode" class="badge badge-primary">Sesi Fokus</span>
+            </div>
+
+            <div class="pomodoro-body">
+              <div class="timer-display" id="pomodoroDisplay">25:00</div>
+              <div class="timer-controls">
+                <button id="pomoStartBtn" class="btn btn-primary btn-sm">Mulai</button>
+                <button id="pomoPauseBtn" class="btn btn-secondary btn-sm" disabled>Jeda</button>
+                <button id="pomoResetBtn" class="btn btn-outline btn-sm">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Campus Portal Shortcuts (Tautan Mahasiswa ITERA) -->
+          <div class="card shortcuts-card">
+            <div class="card-header">
+              <div class="header-title-group">
+                <div class="card-icon link-accent">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Portal Akademik ITERA</h2>
+                  <span class="card-subtitle">Akses cepat layanan kampus</span>
+                </div>
+              </div>
+            </div>
+            <div class="shortcuts-grid">
+              <a href="https://siakad.itera.ac.id" target="_blank" rel="noopener" class="shortcut-item">
+                <span class="shortcut-code">SIAKAD</span>
+                <span class="shortcut-desc">KRS & Nilai</span>
+              </a>
+              <a href="https://kuliah.itera.ac.id" target="_blank" rel="noopener" class="shortcut-item">
+                <span class="shortcut-code">LMS</span>
+                <span class="shortcut-desc">Kuliah Daring</span>
+              </a>
+              <a href="https://dim.itera.ac.id" target="_blank" rel="noopener" class="shortcut-item">
+                <span class="shortcut-code">DIM</span>
+                <span class="shortcut-desc">Data Mahasiswa</span>
+              </a>
+              <a href="modul/index.html" class="shortcut-item" style="border-color: rgba(37, 99, 235, 0.4); background: rgba(37, 99, 235, 0.08);">
+                <span class="shortcut-code" style="color: #2563eb;">MODUL 2</span>
+                <span class="shortcut-desc">Demo &amp; Latihan</span>
+              </a>
+              <a href="https://perpustakaan.itera.ac.id" target="_blank" rel="noopener" class="shortcut-item">
+                <span class="shortcut-code">LIB</span>
+                <span class="shortcut-desc">E-Perpustakaan</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Scratchpad Sticky Note (Auto-saved in localStorage) -->
+          <div class="card scratchpad-card">
+            <div class="card-header">
+              <div class="header-title-group">
+                <div class="card-icon note-accent">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Catatan Cepat Kuliah</h2>
+                  <span class="card-subtitle" id="noteSaveStatus">Otomatis tersimpan</span>
+                </div>
+              </div>
+              <button id="clearNoteBtn" class="btn-text-sm" title="Bersihkan Catatan">Bersihkan</button>
+            </div>
+            <div class="scratchpad-body">
+              <textarea id="scratchpadArea" placeholder="Ketik memo kilat, rumus penting, ruang kelas, atau catatan diskusi kelompok di sini..."></textarea>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- MAIN COLUMN: Tasks, Deadlines & Statistics -->
+        <section class="main-column">
+
+          <!-- Performance & Task Metrics Overview Bar -->
+          <div class="metrics-row" id="metricsRow">
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Total Agenda / Tugas</span>
+                <span id="statTotal" class="metric-value">0</span>
+              </div>
+              <div class="metric-icon bg-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Belum Selesai (Pending)</span>
+                <span id="statPending" class="metric-value text-amber">0</span>
+              </div>
+              <div class="metric-icon bg-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 14 14"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Tugas Tuntas</span>
+                <span id="statCompleted" class="metric-value text-emerald">0</span>
+              </div>
+              <div class="metric-icon bg-emerald">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Prioritas Tinggi / Mendesak</span>
+                <span id="statUrgent" class="metric-value text-rose">0</span>
+              </div>
+              <div class="metric-icon bg-rose">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Progress Bar -->
+          <div class="card progress-card">
+            <div class="progress-header">
+              <span class="progress-title">Progres Penyelesaian Tugas Akademik</span>
+              <span id="progressPercentage" class="progress-percentage">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="progressBar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Task Management Card (CRUD, Filter, Search) -->
+          <div class="card task-manager-card">
+            
+            <!-- Controls & Action Header -->
+            <div class="task-controls-header">
+              <div class="header-action-left">
+                <h2 class="section-title">Manajemen Tugas & Jadwal Kuliah</h2>
+                <p class="section-subtitle">Kelola deadline praktikum, tugas besar, dan jadwal akademik</p>
+              </div>
+              <div class="header-action-right">
+                <!-- Sync / Load Public Sample Button (JSONPlaceholder API Async) -->
+                <button id="importSampleBtn" class="btn btn-secondary" title="Impor contoh tugas dari JSONPlaceholder API">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  <span>Impor API Sample</span>
+                </button>
+
+                <!-- Reset / Load ITERA Default Preset -->
+                <button id="resetSampleBtn" class="btn btn-outline" title="Muat Ulang Paket Contoh Tugas ITERA">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 2v6h6M3 13a9 9 0 1 0 3-7.7L3 8"/>
+                  </svg>
+                  <span>Reset Data</span>
+                </button>
+
+                <!-- Primary Add Task Button (Opens Modal) -->
+                <button id="openAddTaskModalBtn" class="btn btn-primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  <span>Tambah Tugas Baru</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Filter & Search Toolbar -->
+            <div class="task-toolbar">
+              
+              <!-- Search Input Bar -->
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Cari judul tugas, mata kuliah, atau kata kunci..." aria-label="Cari Tugas">
+                <button id="clearSearchBtn" class="clear-search-btn hidden" aria-label="Hapus pencarian">&times;</button>
+              </div>
+
+              <!-- Filter Tabs: Semua / Aktif / Selesai / Prioritas Tinggi -->
+              <div class="filter-tabs" id="statusFilterTabs">
+                <button class="filter-tab active" data-filter="all">Semua (<span id="countAll">0</span>)</button>
+                <button class="filter-tab" data-filter="active">Aktif (<span id="countActive">0</span>)</button>
+                <button class="filter-tab" data-filter="completed">Selesai (<span id="countCompleted">0</span>)</button>
+                <button class="filter-tab" data-filter="urgent">Mendesak (<span id="countUrgent">0</span>)</button>
+              </div>
+
+              <!-- Advanced Category & Sort Dropdowns -->
+              <div class="toolbar-dropdowns">
+                <div class="select-wrapper">
+                  <label for="categoryFilter" class="sr-only">Filter Kategori</label>
+                  <select id="categoryFilter" class="custom-select">
+                    <option value="all">Semua Kategori</option>
+                    <option value="Praktikum">Praktikum</option>
+                    <option value="Tugas Kuliah">Tugas Kuliah</option>
+                    <option value="Tubes / Proyek">Tubes / Proyek</option>
+                    <option value="Ujian / Kuis">Ujian / Kuis</option>
+                    <option value="Organisasi / Lainnya">Organisasi / Lainnya</option>
+                  </select>
+                </div>
+
+                <div class="select-wrapper">
+                  <label for="sortBySelect" class="sr-only">Urutkan Berdasarkan</label>
+                  <select id="sortBySelect" class="custom-select">
+                    <option value="deadlineAsc">Urutkan: Deadline Terdekat</option>
+                    <option value="deadlineDesc">Urutkan: Deadline Terlama</option>
+                    <option value="priority">Urutkan: Prioritas Tertinggi</option>
+                    <option value="createdDesc">Urutkan: Terbaru Dibuat</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Task List Container (Rendered Dynamically via ES6 Template Literals) -->
+            <div id="taskListContainer" class="task-list">
+              <!-- Rendered items will appear here -->
+            </div>
+
+            <!-- Empty State Display -->
+            <div id="emptyStateContainer" class="empty-state hidden">
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <h3 class="empty-title">Belum Ada Tugas Yang Ditampilkan</h3>
+              <p class="empty-text">Tidak ada item yang sesuai dengan filter atau pencarian Anda. Tambahkan tugas baru atau sesuaikan filter pencarian.</p>
+              <button id="emptyStateAddBtn" class="btn btn-primary btn-sm">Tambah Tugas Pertama</button>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+    <!-- Footer Information -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p><strong>ITERA Academic Hub &bull; Personal Student Dashboard</strong></p>
+        <p>Dikembangkan oleh <strong>Nahli Saud Ramdani (NIM: 123140049)</strong> &bull; Praktikum Pengembangan Aplikasi Web (PAW) - Pertemuan 2</p>
+        <p class="footer-badges">
+          <span class="tech-badge">Vanilla JavaScript (ES6+ Classes &amp; Async/Await)</span>
+          <span class="tech-badge">Web Storage API (localStorage)</span>
+          <span class="tech-badge">Open-Meteo &amp; DummyJSON APIs</span>
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==================== MODAL: ADD / EDIT TASK ==================== -->
+  <div id="taskModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </div>
+          <h3 id="modalTitle">Tambah Tugas Akademik Baru</h3>
+        </div>
+        <button id="closeModalBtn" class="modal-close-btn" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <form id="taskForm" class="modal-form" novalidate>
+        <input type="hidden" id="taskIdInput">
+
+        <!-- Form Group: Judul Tugas -->
+        <div class="form-group">
+          <label for="taskTitleInput" class="form-label">
+            Judul Tugas / Agenda <span class="required">*</span>
+          </label>
+          <input type="text" id="taskTitleInput" class="form-control" placeholder="Contoh: Laporan Akhir Praktikum PAW Modul 2" required>
+          <span class="error-msg" id="titleError">Judul tugas wajib diisi (minimal 3 karakter).</span>
+        </div>
+
+        <!-- Form Row: Mata Kuliah & Kategori -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="taskCourseInput" class="form-label">
+              Mata Kuliah / Modul <span class="required">*</span>
+            </label>
+            <input type="text" id="taskCourseInput" class="form-control" placeholder="Contoh: Pemrograman Web (PAW)" required>
+            <span class="error-msg" id="courseError">Nama mata kuliah wajib diisi.</span>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="taskCategorySelect" class="form-label">
+              Kategori Kegiatan
+            </label>
+            <select id="taskCategorySelect" class="form-control">
+              <option value="Praktikum">Praktikum</option>
+              <option value="Tugas Kuliah" selected>Tugas Kuliah</option>
+              <option value="Tubes / Proyek">Tubes / Proyek</option>
+              <option value="Ujian / Kuis">Ujian / Kuis</option>
+              <option value="Organisasi / Lainnya">Organisasi / Lainnya</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Form Row: Deadline & Prioritas -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="taskDeadlineInput" class="form-label">
+              Batas Waktu (Deadline) <span class="required">*</span>
+            </label>
+            <input type="datetime-local" id="taskDeadlineInput" class="form-control" required>
+            <span class="error-msg" id="deadlineError">Silakan tentukan batas tanggal & waktu.</span>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="taskPrioritySelect" class="form-label">
+              Tingkat Prioritas
+            </label>
+            <select id="taskPrioritySelect" class="form-control">
+              <option value="Tinggi">Tinggi (Mendesak / Bobot Besar)</option>
+              <option value="Sedang" selected>Sedang (Reguler)</option>
+              <option value="Rendah">Rendah (Fleksibel)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Form Group: Catatan Tambahan -->
+        <div class="form-group">
+          <label for="taskNotesInput" class="form-label">
+            Catatan Tambahan / Link Pengumpulan
+          </label>
+          <textarea id="taskNotesInput" class="form-control" rows="3" placeholder="Contoh: Kumpulkan di Google Classroom format PDF sebelum pukul 23:59 WIB..."></textarea>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-actions">
+          <button type="button" id="cancelModalBtn" class="btn btn-secondary">Batal</button>
+          <button type="submit" id="saveTaskBtn" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
+            </svg>
+            <span id="saveBtnText">Simpan Tugas</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CONFIRM DELETE ==================== -->
+  <div id="deleteModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card modal-sm">
+      <div class="modal-header danger-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon danger-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18"/>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </div>
+          <h3>Konfirmasi Hapus</h3>
+        </div>
+      </div>
+      <div class="modal-body-confirm">
+        <p>Apakah Anda yakin ingin menghapus tugas ini secara permanen dari dashboard?</p>
+        <p class="delete-target-title" id="deleteTargetTitle">"Nama Tugas"</p>
+      </div>
+      <div class="modal-actions">
+        <button id="cancelDeleteBtn" class="btn btn-secondary">Batal</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Hapus Permanen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Main JavaScript File (ES6+ Module Pattern) -->
+  <script src="app.js"></script>
+</body>
+</html>

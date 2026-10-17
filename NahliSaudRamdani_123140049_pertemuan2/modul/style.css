@@ -1,0 +1,427 @@
+/* ==========================================================================
+   MODUL PRAKTIKUM PAW PERTEMUAN 2 - STYLESHEET
+   Author: Nahli Saud Ramdani (123140049) - RA
+   ========================================================================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --itera-gold: #f59e0b;
+  --bg-dark: #0b1120;
+  --card-dark: #151e32;
+  --card-subtle: #1e293b;
+  --border-color: #24324f;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 2rem 1.5rem 4rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Top Back Navigation */
+.nav-back-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.nav-back:hover {
+  background: rgba(37, 99, 235, 0.25);
+  transform: translateX(-3px);
+  color: #93c5fd;
+}
+
+/* Header Section */
+.modul-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modul-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--itera-gold);
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.modul-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.modul-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Identity Card */
+.identity-card {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(30, 41, 59, 0.6) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.identity-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--itera-gold), #b45309);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.id-text h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.id-text p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Control Action Bar */
+.control-bar {
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.control-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-title h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.control-title span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background-color: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.btn-success:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--card-subtle);
+  color: #ffffff;
+}
+
+/* Materi Overview Grid */
+.materi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.materi-card {
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.materi-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.materi-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.materi-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.15);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.materi-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.materi-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.materi-features {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.materi-features li {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  background: var(--card-subtle);
+  color: #93c5fd;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Output Display Container */
+.output-section {
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.output-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.85rem;
+}
+
+.output-section-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.output-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.empty-prompt {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  background: var(--card-subtle);
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+}
+
+/* Output Item Cards */
+.output-item {
+  background-color: var(--card-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.output-header {
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.5rem;
+}
+
+.output-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 0.2rem;
+}
+
+.output-header .subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.result pre {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.9rem;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+/* Promise and Async Outputs */
+.promise-outputs, .async-outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  background-color: #0f172a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.promise-result, .async-result {
+  color: #94a3b8;
+}
+
+.promise-result strong, .async-result strong {
+  color: var(--itera-gold);
+}
+
+.promise-result span {
+  color: #38bdf8;
+}
+
+/* Footer */
+.modul-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
