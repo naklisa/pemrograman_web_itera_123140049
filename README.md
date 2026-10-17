@@ -9,10 +9,6 @@ Selamat datang di repositori resmi penugasan **Praktikum Pengembangan Aplikasi W
 - **Nama Lengkap** : Nahli Saud Ramdani
 - **NIM** : 123140049
 - **Kelas Praktikum** : RA
-- **Program Studi** : Teknik Informatika
-- **Jurusan** : Teknologi Produksi dan Industri (JTPI)
-- **Institusi** : Institut Teknologi Sumatera (ITERA)
-- **Dosen Pengampu / Tim Asisten** : Praktikum Pengembangan Aplikasi Web (PAW)
 
 ---
 
