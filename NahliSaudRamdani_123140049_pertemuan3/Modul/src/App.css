@@ -1,0 +1,28 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Latihan Mandiri Submodul 1: HMR Exploration - background color diubah menjadi #0d9488 */
+.App-header {
+  background-color: #0d9488;
+  color: white;
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.App-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 1.5rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
