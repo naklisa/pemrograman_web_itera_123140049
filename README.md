@@ -41,19 +41,40 @@ Praktikum PAW/
 │       ├── latihan3.html & latihan3.js          # Latihan 3: Array objek, sorting, filter & CRUD
 │       └── latihan4.html & latihan4.js          # Latihan 4: LocalStorage, validasi & dark mode
 │
-└── NahliSaudRamdani_123140049_pertemuan2/       # TUGAS & LATIHAN PERTEMUAN 2
-    ├── index.html                               # Aplikasi Utama: ITERA Academic Hub Dashboard
-    ├── style.css                                # Desain responsif, dual-theme (Light & Dark) & glassmorphism
-    ├── app.js                                   # Arsitektur OOP ES6+ (Class TaskItem, DashboardApp & Async Fetch)
-    ├── README.md                                # Dokumentasi komprehensif pertemuan 2 & pemetaan ES6+
-    ├── screenshots/                             # Dokumentasi tangkapan layar pengujian pertemuan 2 (7 Gambar)
-    └── modul/                                   # Folder Latihan Modul Praktikum 2 (JavaScript Next Gen ES6+)
-        ├── index.html                           # Runner Interaktif (12 Demo Materi & Solusi Latihan)
-        ├── style.css                            # Desain dark-theme runner eksekusi kode
-        └── js/
-            ├── app.js                           # 12 Fungsi Demo Resmi Panduan Praktikum ES6+
-            ├── latihan.js                       # Solusi Lengkap Latihan Mandiri Seluruh Topik ES6+
-            └── main.js                          # Script Pengikat Runner & Event Listeners
+├── NahliSaudRamdani_123140049_pertemuan2/       # TUGAS & LATIHAN PERTEMUAN 2
+│   ├── index.html                               # Aplikasi Utama: ITERA Academic Hub Dashboard
+│   ├── style.css                                # Desain responsif, dual-theme (Light & Dark) & glassmorphism
+│   ├── app.js                                   # Arsitektur OOP ES6+ (Class TaskItem, DashboardApp & Async Fetch)
+│   ├── README.md                                # Dokumentasi komprehensif pertemuan 2 & pemetaan ES6+
+│   ├── screenshots/                             # Dokumentasi tangkapan layar pengujian pertemuan 2 (7 Gambar)
+│   └── modul/                                   # Folder Latihan Modul Praktikum 2 (JavaScript Next Gen ES6+)
+│       ├── index.html                           # Runner Interaktif (12 Demo Materi & Solusi Latihan)
+│       ├── style.css                            # Desain dark-theme runner eksekusi kode
+│       └── js/
+│           ├── app.js                           # 12 Fungsi Demo Resmi Panduan Praktikum ES6+
+│           ├── latihan.js                       # Solusi Lengkap Latihan Mandiri Seluruh Topik ES6+
+│           └── main.js                          # Script Pengikat Runner & Event Listeners
+│
+├── NahliSaudRamdani_123140049_pertemuan3/       # TUGAS & LATIHAN PERTEMUAN 3 (REACT SPA)
+│   ├── src/                                     # Komponen React, Context API, Hooks, & Pages
+│   ├── README.md                                # Dokumentasi lengkap PustakaKu React 19 SPA
+│   ├── screenshots/                             # Dokumentasi tangkapan layar antarmuka PustakaKu
+│   └── Modul/                                   # Latihan materi React dasar
+│
+└── NahliSaudRamdani_123140049_pertemuan4/       # TUGAS & LATIHAN PERTEMUAN 4 (PYTHON DASAR)
+    ├── tugas1_bmi.py                            # Program Kalkulator BMI & Klasifikasi Status WHO
+    ├── tugas2_nilai_mahasiswa.py                # Pengelolaan Nilai Mahasiswa, Tabel, & Deteksi Ekstrem
+    ├── math_operations.py                       # Modul Kustom Geometri, Konversi Suhu, & Konstanta
+    ├── main.py                                  # Program Utama Pengujian Modul Matematika (Multi-Import)
+    ├── README.md                                # Dokumentasi komprehensif pertemuan 4 & PEP 8
+    ├── screenshots/                             # Dokumentasi tangkapan layar terminal eksekusi
+    └── modul/                                   # Folder Materi & Latihan Mandiri 1 - 6
+        ├── 01_pengenalan.py & latihan1.py       # Print, format sep/end & identitas berbingkai
+        ├── 02_variabel.py & latihan2_suhu.py    # Variabel, type casting & konversi suhu
+        ├── 03_kendali.py & latihan3_tebak.py    # Percabangan, looping & game tebak angka
+        ├── 04_fungsi.py & latihan4_validasi.py  # Fungsi modular, args/kwargs & validator password
+        ├── 05_struktur_data.py & latihan5_kontak.py # List comprehension, dict, set & buku kontak
+        └── kalkulator_lib.py, 06_modul_app.py, password_gen.py, latihan6_main.py # Modul kustom
 ```
 
 ---
